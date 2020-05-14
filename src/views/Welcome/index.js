@@ -3,7 +3,6 @@ import { Container } from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   Title,
-  WhiteTextBtn,
   GhostBtn,
   StyledSafeAreaView,
   Subtitle,
@@ -30,7 +29,7 @@ const WelcomeScreen = (props) => {
           <Subtitle>Uma aplicação simples para uma tarefa simples!</Subtitle>
           <GhostBtn
             style={{ marginTop: 64 }}
-            onPress={() => props.navigation.navigate("Home")}
+            onPress={() => props.navigation.push("Home")}
           >
             <Subtitle>Criar Notas</Subtitle>
             <Feather

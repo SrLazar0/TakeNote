@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image } from "react-native";
+import { Image, StatusBar } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
@@ -29,6 +29,7 @@ const HomeFirstTimeScreen = (props) => {
       }}
     >
       <StyledSafeAreaView>
+        <StatusBar barStyle="light-content" backgroundColor="#212121" />
         <Container>
           <Image source={require("../../../assets/Logo.png")} />
         </Container>
