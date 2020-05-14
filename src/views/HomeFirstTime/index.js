@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { View, Text, Image } from "react-native";
+import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Feather } from "@expo/vector-icons";
 import {
   Title,
   WhiteTextInput,
-  WhiteTextBtn,
+  Subtitle,
   GhostBtn,
-} from "../../GlobalStyles";
+  StyledSafeAreaView,
+} from "../../styles/GlobalStyles";
 
 import { Container } from "./styles";
 import { DefaultBackgroundColor } from "../../styles/colors";
 
-const Home = () => {
+const HomeFirstTimeScreen = (props) => {
   const [name, setName] = useState("");
   return (
     <LinearGradient
@@ -26,13 +28,7 @@ const Home = () => {
         top: 0,
       }}
     >
-      <SafeAreaView
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <StyledSafeAreaView>
         <Container>
           <Image source={require("../../../assets/Logo.png")} />
         </Container>
@@ -44,13 +40,19 @@ const Home = () => {
             maxLength={16}
             selectionColor={DefaultBackgroundColor}
           />
-          <GhostBtn>
-            <WhiteTextBtn>Continuar</WhiteTextBtn>
+
+          <GhostBtn onPress={() => props.navigation.navigate("Welcome")}>
+            <Subtitle>Continuar</Subtitle>
+            <Feather
+              name={"chevron-right"}
+              size={32}
+              color={DefaultBackgroundColor}
+            />
           </GhostBtn>
         </Container>
-      </SafeAreaView>
+      </StyledSafeAreaView>
     </LinearGradient>
   );
 };
 
-export default Home;
+export default HomeFirstTimeScreen;
