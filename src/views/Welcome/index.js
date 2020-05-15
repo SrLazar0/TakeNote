@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, GradientBackground } from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   Title,
@@ -9,28 +9,17 @@ import {
 } from "../../styles/GlobalStyles";
 import { Feather } from "@expo/vector-icons";
 import { DefaultBackgroundColor } from "../../styles/colors";
+import NavigationModule from "../../modules/NavigationModule";
 
 const WelcomeScreen = (props) => {
+  const nav = NavigationModule(props.navigation);
   return (
-    <LinearGradient
-      colors={["#2F2830", "#212121"]}
-      style={{
-        flex: 1,
-        height: "100%",
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: 0,
-      }}
-    >
+    <GradientBackground colors={["#2F2830", "#212121"]}>
       <StyledSafeAreaView>
         <Container>
           <Title>Seja bem-vindo ao TakeNote</Title>
           <Subtitle>Uma aplicação simples para uma tarefa simples!</Subtitle>
-          <GhostBtn
-            style={{ marginTop: 64 }}
-            onPress={() => props.navigation.push("Home")}
-          >
+          <GhostBtn style={{ marginTop: 64 }} onPress={() => nav.GoTo("Home")}>
             <Subtitle>Criar Notas</Subtitle>
             <Feather
               name={"chevron-right"}
@@ -40,7 +29,7 @@ const WelcomeScreen = (props) => {
           </GhostBtn>
         </Container>
       </StyledSafeAreaView>
-    </LinearGradient>
+    </GradientBackground>
   );
 };
 

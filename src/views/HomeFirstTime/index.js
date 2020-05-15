@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Image, StatusBar } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import {
@@ -10,24 +9,15 @@ import {
   GhostBtn,
   StyledSafeAreaView,
 } from "../../styles/GlobalStyles";
-
-import { Container } from "./styles";
+import { Container, GradientBackground } from "./styles";
 import { DefaultBackgroundColor } from "../../styles/colors";
+import NavigationModule from "../../modules/NavigationModule";
 
 const HomeFirstTimeScreen = (props) => {
   const [name, setName] = useState("");
+  const nav = NavigationModule(props.navigation);
   return (
-    <LinearGradient
-      colors={["#10b26c", "#2AF598"]}
-      style={{
-        flex: 1,
-        height: "100%",
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: 0,
-      }}
-    >
+    <GradientBackground colors={["#10b26c", "#2AF598"]}>
       <StyledSafeAreaView>
         <StatusBar barStyle="light-content" backgroundColor="#212121" />
         <Container>
@@ -41,8 +31,7 @@ const HomeFirstTimeScreen = (props) => {
             maxLength={16}
             selectionColor={DefaultBackgroundColor}
           />
-
-          <GhostBtn onPress={() => props.navigation.navigate("Welcome")}>
+          <GhostBtn onPress={() => nav.GoTo("Welcome")}>
             <Subtitle>Continuar</Subtitle>
             <Feather
               name={"chevron-right"}
@@ -52,7 +41,7 @@ const HomeFirstTimeScreen = (props) => {
           </GhostBtn>
         </Container>
       </StyledSafeAreaView>
-    </LinearGradient>
+    </GradientBackground>
   );
 };
 

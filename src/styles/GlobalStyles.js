@@ -27,7 +27,6 @@ const DefaultTextInput = styled.TextInput`
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom-width: 4px;
-  border-radius: 10px;
 `;
 
 export const WhiteTextInput = styled(DefaultTextInput)`
