@@ -1,5 +1,9 @@
 import styled from "styled-components/native";
-import { DefaultBackgroundColor } from "./colors";
+import {
+  DefaultBackgroundColor,
+  PrimaryColor,
+  LightPrimaryColor,
+} from "./colors";
 import { Dimensions } from "react-native";
 
 const StyledText = styled.Text`
@@ -42,6 +46,22 @@ export const GhostBtn = styled.TouchableOpacity`
   justify-content: center;
   padding: 10px;
 `;
+
+export const RoundBtn = styled.TouchableOpacity`
+  height: 70px;
+  width: 70px;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  margin: 16px;
+`;
+export const RoundPrimaryBtn = styled(RoundBtn)`
+  background-color: ${LightPrimaryColor};
+  box-shadow: 0px 0px 20px ${LightPrimaryColor};
+  shadow-opacity: 0.5;
+  elevation: 5;
+`;
+export const RoundDangerBtn = styled(RoundBtn)``;
 
 export const StyledSafeAreaView = styled.SafeAreaView`
   flex: 1;

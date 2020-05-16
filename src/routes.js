@@ -7,9 +7,11 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import WelcomeScreen from "./views/Welcome";
 import DefaultHomeScreen from "./views/DefaultHome";
 import { Feather } from "@expo/vector-icons";
+import UserModule from "./modules/UserModule";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const User = UserModule;
 
 function HomeDrawer() {
   return (
@@ -74,16 +76,29 @@ function HomeDrawer() {
   );
 }
 
+function firstTimeStack() {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="HomeFirstTime" component={HomeFirstTimeScreen} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="Home" component={HomeDrawer} />
+    </Stack.Navigator>
+  );
+}
+
+function checkUser() {
+  let user = User().getUser();
+  if (user) {
+    return HomeDrawer();
+  } else {
+    return firstTimeStack();
+  }
+}
+
 function AppRoutes() {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator headerMode="none">
-          <Stack.Screen name="HomeFirstTime" component={HomeFirstTimeScreen} />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Home" component={HomeDrawer} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <NavigationContainer>{checkUser()}</NavigationContainer>
     </SafeAreaProvider>
   );
 }

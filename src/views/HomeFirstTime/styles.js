@@ -17,3 +17,8 @@ export const GradientBackground = styled(LinearGradient)`
   right: 0;
   top: 0;
 `;
+
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+  flex: 1;
+  justify-content: center;
+`;

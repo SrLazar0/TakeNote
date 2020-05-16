@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StatusBar } from "react-native";
+import { Image, StatusBar, KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import {
@@ -9,39 +9,55 @@ import {
   GhostBtn,
   StyledSafeAreaView,
 } from "../../styles/GlobalStyles";
-import { Container, GradientBackground } from "./styles";
+import {
+  Container,
+  GradientBackground,
+  StyledKeyboardAvoidingView,
+} from "./styles";
 import { DefaultBackgroundColor } from "../../styles/colors";
 import NavigationModule from "../../modules/NavigationModule";
+import UserModule from "../../modules/UserModule";
 
 const HomeFirstTimeScreen = (props) => {
   const [name, setName] = useState("");
   const nav = NavigationModule(props.navigation);
+
+  const saveNameAndGo = () => {
+    let user = UserModule();
+    user.createUser(name);
+    nav.GoTo("Welcome");
+  };
+
   return (
-    <GradientBackground colors={["#10b26c", "#2AF598"]}>
-      <StyledSafeAreaView>
-        <StatusBar barStyle="light-content" backgroundColor="#212121" />
-        <Container>
-          <Image source={require("../../../assets/Logo.png")} />
-        </Container>
-        <Container>
-          <Title>Olá {name},</Title>
-          <WhiteTextInput
-            placeholder={"Qual seu nome ?"}
-            onChangeText={(text) => setName(text)}
-            maxLength={16}
-            selectionColor={DefaultBackgroundColor}
-          />
-          <GhostBtn onPress={() => nav.GoTo("Welcome")}>
-            <Subtitle>Continuar</Subtitle>
-            <Feather
-              name={"chevron-right"}
-              size={32}
-              color={DefaultBackgroundColor}
+    <StyledKeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <GradientBackground colors={["#10b26c", "#2AF598"]}>
+        <StyledSafeAreaView>
+          <StatusBar barStyle="light-content" backgroundColor="#212121" />
+          <Container>
+            <Image source={require("../../../assets/Logo.png")} />
+          </Container>
+          <Container>
+            <Title>Olá {name},</Title>
+            <WhiteTextInput
+              placeholder={"Qual é o seu nome ?"}
+              onChangeText={(text) => setName(text)}
+              maxLength={16}
+              selectionColor={DefaultBackgroundColor}
             />
-          </GhostBtn>
-        </Container>
-      </StyledSafeAreaView>
-    </GradientBackground>
+            <GhostBtn onPress={saveNameAndGo}>
+              <Subtitle>Continuar</Subtitle>
+              <Feather
+                name={"chevron-right"}
+                size={32}
+                color={DefaultBackgroundColor}
+              />
+            </GhostBtn>
+          </Container>
+        </StyledSafeAreaView>
+      </GradientBackground>
+    </StyledKeyboardAvoidingView>
   );
 };
 
