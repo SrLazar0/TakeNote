@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar, AsyncStorage } from "react-native";
+import { StatusBar } from "react-native";
 import {
   HeaderContainer,
   BodyContainer,
@@ -20,7 +20,6 @@ import {
   LightPrimaryColor,
 } from "../../styles/colors";
 import BookModule from "../../modules/BookModule";
-import AsyncStorageModule from "../../modules/AsyncStorageModule";
 import UserModule from "../../modules/UserModule";
 import { Feather } from "@expo/vector-icons";
 
@@ -28,7 +27,7 @@ const DefaultHomeScreen = () => {
   const Book = BookModule();
   const User = UserModule();
   const user = User.getUser();
-  const [Books, setBooks] = useState([]);
+  const [bookTitle, setBookTitle] = useState("");
 
   const addNoteIcon = (
     <Feather name={"edit-3"} size={32} color={DefaultBackgroundColor} />
@@ -37,9 +36,9 @@ const DefaultHomeScreen = () => {
     <Feather name={"book"} size={32} color={DefaultBackgroundColor} />
   );
 
-  const createBook = async (title) => {
-    // let book = await Book.createBook(title);
-    AsyncStorageModule().clearStorage();
+  const createBook = async () => {
+    result = await Book.createBook(bookTitle);
+    console.log(result);
   };
 
   return (
@@ -58,7 +57,7 @@ const DefaultHomeScreen = () => {
         <NotesContainer></NotesContainer>
       </BodyContainer>
       <FooterContainer>
-        <RoundPrimaryBtn>{addNoteIcon}</RoundPrimaryBtn>
+        <RoundPrimaryBtn onPress={createBook}>{addNoteIcon}</RoundPrimaryBtn>
         <RoundPrimaryBtn>{addBookIcon}</RoundPrimaryBtn>
       </FooterContainer>
     </StyledSafeAreaView>

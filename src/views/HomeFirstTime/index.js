@@ -17,13 +17,16 @@ import {
 import { DefaultBackgroundColor } from "../../styles/colors";
 import NavigationModule from "../../modules/NavigationModule";
 import UserModule from "../../modules/UserModule";
+import SQLiteModule from "../../modules/SQLiteModule";
 
 const HomeFirstTimeScreen = (props) => {
   const [name, setName] = useState("");
   const nav = NavigationModule(props.navigation);
+  const Db = SQLiteModule();
 
   const saveNameAndGo = () => {
     let user = UserModule();
+    db.createTables();
     user.createUser(name);
     nav.GoTo("Welcome");
   };

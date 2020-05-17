@@ -1,37 +1,42 @@
-import { AsyncStorage } from "react-native";
-import UIDModule from "./UIDModule";
-
+import SQLiteModule from "./SQLiteModule";
+// import * as SQLite from "expo-sqlite";
 function BookModule(props) {
-  async function createBook(title) {
-    let id = await UIDModule().GenerateUID();
-    let book = {
-      id: id.toString(),
-      title,
-      date: new Date().toLocaleDateString("pt-PT"),
-    };
-    await saveBook(book);
-    return book;
-  }
+  const db = SQLiteModule();
+  // const db = SQLite.openDatabase("takenote.db");
+
+  const createBook = async (title) => {
+    let sql =
+      db.statements.insert +
+      "Books (BookTitle, DateTime)" +
+      db.statements.values +
+      "(?, julianday('now'))";
+
+    try {
+      let BookID = await db.insertItem(sql, [title]);
+      let book = getBook(BookID);
+      return book;
+    } catch (error) {
+      return error;
+    }
+  };
 
   function editBook() {}
 
   function deleteBook() {}
 
-  async function getBook(bookID) {
-    let book = await AsyncStorage.getItem(bookID);
-    return book;
-  }
-
-  async function saveBook(book) {
+  async function getBook(BookID) {
+    let SelectStatement =
+      "SELECT BookID, BookTitle, date(DateTime) as Date, time(DateTime) as Time FROM Books WHERE BookID = ?";
     try {
-      await AsyncStorage.setItem(book.id, JSON.stringify(book));
+      let book = await db.selectItem(SelectStatement, [BookID]);
+      return book;
     } catch (error) {
-      console.log("> [BookModule] saveBook : " + error);
+      return error;
     }
   }
 
-  function openBook(book) {
-    props.navigation.push("BookDetails", { book });
+  function openBook(Book) {
+    props.navigation.push("BookDetails", { Book });
   }
 
   return {
