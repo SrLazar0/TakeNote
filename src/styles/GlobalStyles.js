@@ -3,6 +3,7 @@ import {
   DefaultBackgroundColor,
   PrimaryColor,
   LightPrimaryColor,
+  DarkGray,
 } from "./colors";
 import { Dimensions } from "react-native";
 
@@ -39,10 +40,32 @@ export const WhiteTextInput = styled(DefaultTextInput)`
   font-size: 32px;
   text-align: center;
 `;
+export const GrayTextInput = styled(DefaultTextInput)`
+  border-bottom-color: ${DarkGray};
+  color: ${DarkGray};
+  font-size: 24px;
+  text-align: center;
+`;
+
+GrayTextInput.defaultProps = {
+  placeholderTextColor: [DarkGray],
+  selectionColor: [DarkGray],
+};
+
+export const GrayIconTextInput = styled(GrayTextInput)`
+  width: ${Dimensions.get("window").width - 72}px;
+  padding: 0px;
+  border-bottom-width: 0;
+`;
 
 export const GhostBtn = styled.TouchableOpacity`
   flex-direction: row;
   width: ${Dimensions.get("window").width - 32}px;
+  justify-content: center;
+  padding: 10px;
+`;
+export const IconBtn = styled.TouchableOpacity`
+  flex-direction: row;
   justify-content: center;
   padding: 10px;
 `;

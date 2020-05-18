@@ -1,27 +1,38 @@
 import React, { useState } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, View } from "react-native";
 import {
   HeaderContainer,
   BodyContainer,
   BookContainer,
   NotesContainer,
   FooterContainer,
+  HeaderContainerTitle,
+  SearchInputContainer,
+  BookContainerTitle,
+  BookList,
+  NoteList,
 } from "./styles";
 import {
   StyledSafeAreaView,
   Title,
   GhostBtn,
   Subtitle,
+  IconBtn,
   RoundPrimaryBtn,
+  GrayIconTextInput,
 } from "../../styles/GlobalStyles";
 import {
   DefaultBackgroundColor,
   PrimaryColor,
   LightPrimaryColor,
+  DarkGray,
+  DarkGreen,
 } from "../../styles/colors";
 import BookModule from "../../modules/BookModule";
 import UserModule from "../../modules/UserModule";
 import { Feather } from "@expo/vector-icons";
+import BookItem from "../../components/BookItem";
+import NoteItem from "../../components/NoteItem";
 
 const DefaultHomeScreen = () => {
   const Book = BookModule();
@@ -45,16 +56,54 @@ const DefaultHomeScreen = () => {
     <StyledSafeAreaView
       style={{
         backgroundColor: DefaultBackgroundColor,
-        justifyContent: "flex-start",
       }}
     >
       <StatusBar barStyle="dark-content" />
       <HeaderContainer>
-        <Title Color={LightPrimaryColor}>{user.name}</Title>
+        <HeaderContainerTitle>
+          <IconBtn>
+            <Feather name="menu" size={24} color={DarkGray} />
+          </IconBtn>
+          <View
+            style={{
+              justifyContent: "center",
+              flex: 1,
+            }}
+          >
+            <Title Color={PrimaryColor}>{user.name} </Title>
+          </View>
+        </HeaderContainerTitle>
+        <SearchInputContainer>
+          <GrayIconTextInput placeholder={"Buscar por nota"} />
+          <Feather name="search" size={24} color={DarkGray} />
+        </SearchInputContainer>
       </HeaderContainer>
       <BodyContainer>
-        <BookContainer></BookContainer>
-        <NotesContainer></NotesContainer>
+        <BookContainer>
+          <BookContainerTitle>
+            <Subtitle Color={PrimaryColor}>Livros</Subtitle>
+            <IconBtn>
+              <Feather name="grid" size={24} color={DarkGray} />
+            </IconBtn>
+          </BookContainerTitle>
+          <BookList horizontal={true}>
+            <BookItem />
+            <BookItem />
+            <BookItem />
+            <BookItem />
+            <BookItem />
+            <BookItem />
+          </BookList>
+        </BookContainer>
+        <NotesContainer>
+          <NoteList>
+            <NoteItem />
+            <NoteItem />
+            <NoteItem />
+            <NoteItem />
+            <NoteItem />
+          </NoteList>
+        </NotesContainer>
       </BodyContainer>
       <FooterContainer>
         <RoundPrimaryBtn onPress={createBook}>{addNoteIcon}</RoundPrimaryBtn>
