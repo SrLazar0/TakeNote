@@ -11,7 +11,7 @@ import { Feather } from "@expo/vector-icons";
 import { DefaultBackgroundColor } from "../../styles/colors";
 import NavigationModule from "../../modules/NavigationModule";
 
-const WelcomeScreen = (props) => {
+const Welcome = (props) => {
   const nav = NavigationModule(props.navigation);
   return (
     <GradientBackground colors={["#2F2830", "#212121"]}>
@@ -33,4 +33,4 @@ const WelcomeScreen = (props) => {
   );
 };
 
-export default WelcomeScreen;
+export default Welcome;

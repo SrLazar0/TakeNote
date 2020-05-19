@@ -4,6 +4,7 @@ import {
   PrimaryColor,
   LightPrimaryColor,
   DarkGray,
+  DangerColor,
 } from "./colors";
 import { Dimensions } from "react-native";
 
@@ -84,7 +85,12 @@ export const RoundPrimaryBtn = styled(RoundBtn)`
   shadow-opacity: 0.5;
   elevation: 5;
 `;
-export const RoundDangerBtn = styled(RoundBtn)``;
+export const RoundDangerBtn = styled(RoundBtn)`
+  background-color: ${DangerColor};
+  box-shadow: 0px 0px 20px ${DangerColor};
+  shadow-opacity: 0.5;
+  elevation: 5;
+`;
 
 export const StyledSafeAreaView = styled.SafeAreaView`
   flex: 1;

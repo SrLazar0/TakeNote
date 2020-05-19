@@ -34,7 +34,7 @@ import { Feather } from "@expo/vector-icons";
 import BookItem from "../../components/BookItem";
 import NoteItem from "../../components/NoteItem";
 
-const DefaultHomeScreen = () => {
+const DefaultHome = (props) => {
   const Book = BookModule();
   const User = UserModule();
   const user = User.getUser();
@@ -61,7 +61,7 @@ const DefaultHomeScreen = () => {
       <StatusBar barStyle="dark-content" />
       <HeaderContainer>
         <HeaderContainerTitle>
-          <IconBtn>
+          <IconBtn onPress={() => props.navigation.openDrawer()}>
             <Feather name="menu" size={24} color={DarkGray} />
           </IconBtn>
           <View
@@ -92,7 +92,6 @@ const DefaultHomeScreen = () => {
             <BookItem />
             <BookItem />
             <BookItem />
-            <BookItem />
           </BookList>
         </BookContainer>
         <NotesContainer>
@@ -106,11 +105,13 @@ const DefaultHomeScreen = () => {
         </NotesContainer>
       </BodyContainer>
       <FooterContainer>
-        <RoundPrimaryBtn onPress={createBook}>{addNoteIcon}</RoundPrimaryBtn>
+        <RoundPrimaryBtn onPress={() => props.navigation.navigate("AddNote")}>
+          {addNoteIcon}
+        </RoundPrimaryBtn>
         <RoundPrimaryBtn>{addBookIcon}</RoundPrimaryBtn>
       </FooterContainer>
     </StyledSafeAreaView>
   );
 };
 
-export default DefaultHomeScreen;
+export default DefaultHome;

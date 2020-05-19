@@ -36,6 +36,7 @@ export const BookList = styled.ScrollView`
 
 export const NoteList = styled.ScrollView`
   flex: 1;
+  margin-top: 32px;
 `;
 
 export const NotesContainer = styled(defaultContainer)`

@@ -19,7 +19,7 @@ import NavigationModule from "../../modules/NavigationModule";
 import UserModule from "../../modules/UserModule";
 import SQLiteModule from "../../modules/SQLiteModule";
 
-const HomeFirstTimeScreen = (props) => {
+const HomeFirstTime = (props) => {
   const [name, setName] = useState("");
   const nav = NavigationModule(props.navigation);
   const Db = SQLiteModule();
@@ -64,4 +64,4 @@ const HomeFirstTimeScreen = (props) => {
   );
 };
 
-export default HomeFirstTimeScreen;
+export default HomeFirstTime;

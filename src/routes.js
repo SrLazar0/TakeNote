@@ -2,16 +2,36 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Feather } from "@expo/vector-icons";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import UserModule from "./modules/UserModule";
 import HomeFirstTimeScreen from "./views/HomeFirstTime";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import WelcomeScreen from "./views/Welcome";
 import DefaultHomeScreen from "./views/DefaultHome";
-import { Feather } from "@expo/vector-icons";
-import UserModule from "./modules/UserModule";
+import AddNoteScreen from "./views/AddNote";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const User = UserModule;
+
+function checkUser() {
+  let user = User().getUser();
+  if (user) {
+    return HomeDrawer();
+  } else {
+    return firstTimeStack();
+  }
+}
+
+function firstTimeStack() {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="HomeFirstTime" component={HomeFirstTimeScreen} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="Home" component={HomeDrawer} />
+    </Stack.Navigator>
+  );
+}
 
 function HomeDrawer() {
   return (
@@ -38,7 +58,7 @@ function HomeDrawer() {
     >
       <Drawer.Screen
         name="Home"
-        component={DefaultHomeScreen}
+        component={HomeStack}
         options={{
           drawerIcon: ({ color, size }) => (
             <Feather name="home" color={color} size={size} />
@@ -76,23 +96,13 @@ function HomeDrawer() {
   );
 }
 
-function firstTimeStack() {
+function HomeStack() {
   return (
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="HomeFirstTime" component={HomeFirstTimeScreen} />
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      <Stack.Screen name="Home" component={HomeDrawer} />
+    <Stack.Navigator headerMode="none" initialRouteName={"Home"}>
+      <Stack.Screen name="Home" component={DefaultHomeScreen} />
+      <Stack.Screen name={"AddNote"} component={AddNoteScreen} />
     </Stack.Navigator>
   );
-}
-
-function checkUser() {
-  let user = User().getUser();
-  if (user) {
-    return HomeDrawer();
-  } else {
-    return firstTimeStack();
-  }
 }
 
 function AppRoutes() {
